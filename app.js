@@ -4,21 +4,20 @@ var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
 '$stateProvider',
 '$urlRouterProvider',
 function($stateProvider, $urlRouterProvider) {
+  console.log($urlRouterProvider);
   $stateProvider
-    /*
     .state('home', {
       url: '/home',
       templateUrl: '/home.html',
       controller: 'MainCtrl'
     })
-*/
     .state('gifts', {
       url: '/gifts',
       templateUrl: '/gifts.html',
       controller: 'GiftsCtrl'
     });
 
-  $urlRouterProvider.otherwise('gifts');
+  $urlRouterProvider.otherwise('home');
 }])
 
 .controller('MainCtrl', ['$scope',
