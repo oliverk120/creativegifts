@@ -1,0 +1,74 @@
+ <div class="container">
+    <div>
+
+      <ul>
+        Query: {{query}}
+        <!--<li ng-repeat="item in data">{{item}}</li>-->
+      </ul>
+      <div class="col-sm-4">
+
+        <div class="">
+
+        </div>
+
+
+        <div> Recipient:</div>
+        <div>
+          <div class="row">
+            <div>
+
+              <div class="col-sm-12">
+                <label class="btn btn-primary col-sm-6" ng-model="query.gender" uib-btn-radio="'M'" uncheckable>Male</label>
+                <label class="btn btn-primary col-sm-6" ng-model="query.gender" uib-btn-radio="'F'" uncheckable>Female</label>
+              </div>
+              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="'friend'" uncheckable>
+                Friend
+              </button>
+              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="'parent'" uncheckable>
+                <span ng-switch="gender">
+                  <span ng-switch-when="M">Father</span>
+                  <span ng-switch-when="F">Mother</span>
+                  <span ng-switch-default>Parent</span>
+                </span>
+              </button>
+              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="'so'" uncheckable>
+                <span ng-switch="gender">
+                  <span ng-switch-when="M">Boyfriend/Husband</span>
+                  <span ng-switch-when="F">Girlfriend/Wife</span>
+                  <span ng-switch-default>Significant Other</span>
+                </span>
+              </button>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="panel-heading">Price Range:</div>
+      <input ng-model="query.minprice" />
+      <input ng-model="query.maxprice" />
+    </div>
+
+    <div class="col-sm-4">
+      <div class="panel-heading">Include:</div>
+      <form class="checkbox" action="">
+        <input type="checkbox" name="vehicle" value="Bike" ng-model="query.nsfw">Adult themed gifts
+        <br>
+        <input type="checkbox" name="vehicle" value="Bike" ng-model="query.booze">Alcohol related gifts
+        <br>
+        <input type="checkbox" name="vehicle" value="Bike" ng-model="query.geek">Geeky gifts
+        <br>
+        <input type="checkbox" name="vehicle" value="Car" ng-model="query.joke">Joke gifts
+      </form>
+    </div>
+
+    <div class="col-sm-12" style="text-align: center">
+      <a class="btn btn-primary" role="button" href="#/gifts.html">Find Gift</a>
+      <!--<a class="btn btn-primary" role="button">Random</a>-->
+    </div>
+
+  </div>
+</div>
+</div>
