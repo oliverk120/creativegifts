@@ -1,0 +1,62 @@
+ <div class="container" ng-init="findOne()">
+  <div>
+    <ul>
+      Gift {{gift}}
+    </ul>
+    <div class="col-sm-4">
+    Name:<input ng-model="gift.title" /><br/>
+    Description:<input ng-model="gift.description" /><br/>
+    Image:<input ng-model="gift.img_src" /><br/>
+    AmazonId:<input ng-model="gift.amazonid" /><br/>
+    Source Url:<input ng-model="gift.source_url" /><br/>
+      Price:<input ng-model="gift.price" /><br/>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel-heading">is it a:</div>
+      <form class="checkbox" action="">
+      <input type="checkbox" ng-model="gift.nsfw">Adult themed gift
+        <br>
+        <input type="checkbox" ng-model="gift.booze">Alcohol related gift
+        <br>
+        <input type="checkbox" ng-model="gift.geek">Geeky gift
+        <br>
+        <input type="checkbox" ng-model="gift.joke">Joke gift
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <div class="">
+      </div>
+      <div> Recipient:</div>
+      <div>
+        <div class="row">
+          <div>
+            <div class="col-sm-12">
+              <button class="btn" ng-model="gift.gender" uib-btn-radio="'M'" uncheckable>Male</button>
+              <button class="btn" ng-model="gift.gender" uib-btn-radio="'F'" uncheckable>Female</button>
+              <button class="btn" ng-model="gift.gender" uib-btn-radio="" uncheckable>Either</button>
+            </div>
+            Meaningfulness:
+            <br/>
+            <button class="btn" ng-model="gift.relationship" uib-btn-radio="" uncheckable>
+              Not really meaningful
+            </button>
+            <button class="btn" ng-model="gift.relationship" uib-btn-radio="1" uncheckable>
+              Meaningful
+            </button>
+            <button class="btn" ng-model="gift.relationship" uib-btn-radio="2" uncheckable>
+              Romantic
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12" style="text-align: center">
+    <a href="#/home" class="btn btn-primary" role="home">Home</a>
+  </div>
+
+</div>
+</div>
+</div>

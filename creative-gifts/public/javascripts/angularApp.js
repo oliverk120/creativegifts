@@ -21,10 +21,15 @@ var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
       templateUrl: '/createGift.html',
       controller: 'GiftsCtrl'
     })
-    .state('gifts', {
-      url: '/gifts/{id}',
+    .state('all gifts', {
+      url: '/gifts',
       templateUrl: '/gifts.html',
       controller: 'GiftsCtrl'
+    })
+    .state('view gift', {
+      url: '/gift/{id}',
+      templateUrl: '/viewGift.html',
+      controller: 'GiftsCtrl',
     });
 
     $urlRouterProvider.otherwise('home');
@@ -36,6 +41,11 @@ app.factory('gifts', ['$http', function($http){
   };
   o.getAll = function(){
     return $http.get('/gifts').success(function(data){
+      angular.copy(data, o.gifts);
+    })
+  }
+  o.findOne = function(id){
+    return $http.get('/gifts/'+id).success(function(data){
       angular.copy(data, o.gifts);
     })
   }
@@ -95,6 +105,14 @@ app.factory('gifts', ['$http', function($http){
         console.log('gift not valid');
       }
     };
+    $scope.findOne = function(){
+      console.log($stateParams.id);
+      if($stateParams.id){
+        gifts.findOne($stateParams.id);
+        $scope.gift = gifts.gifts;
+        console.log(gifts);
+      }
+    }
 
 
 }]);
