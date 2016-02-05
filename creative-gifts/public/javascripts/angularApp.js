@@ -54,6 +54,10 @@ app.factory('gifts', ['$http', function($http){
       o.gifts.push(data);
     });
   }
+  o.remove = function(gift){
+    console.log(gift);
+    $http.delete('/gifts/'+gift._id);
+  }
   return o;
 }])
 
@@ -112,6 +116,12 @@ app.factory('gifts', ['$http', function($http){
         $scope.gift = gifts.gifts;
         console.log(gifts);
       }
+    }
+
+    $scope.remove = function(gift){
+
+        gifts.remove(gift);
+
     }
 
 
