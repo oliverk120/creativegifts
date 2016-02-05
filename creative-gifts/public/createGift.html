@@ -1,0 +1,63 @@
+ <div class="container">
+  <div>
+    <ul>
+      Gift {{newgift}}
+    </ul>
+    <div class="col-sm-4">
+    Name:<input ng-model="newgift.title" /><br/>
+    Description:<input ng-model="newgift.description" /><br/>
+    Image:<input ng-model="newgift.img_src" /><br/>
+    AmazonId:<input ng-model="newgift.amazonid" /><br/>
+    Source Url:<input ng-model="newgift.source_url" /><br/>
+      Price:<input ng-model="newgift.price" /><br/>
+    </div>
+    <div class="col-sm-4">
+      <div class="panel-heading">is it a:</div>
+      <form class="checkbox" action="">
+      <input type="checkbox" ng-model="newgift.nsfw">Adult themed gift
+        <br>
+        <input type="checkbox" ng-model="newgift.booze">Alcohol related gift
+        <br>
+        <input type="checkbox" ng-model="newgift.geek">Geeky gift
+        <br>
+        <input type="checkbox" ng-model="newgift.joke">Joke gift
+      </form>
+    </div>
+    <div class="col-sm-4">
+      <div class="">
+      </div>
+      <div> Recipient:</div>
+      <div>
+        <div class="row">
+          <div>
+            <div class="col-sm-12">
+              <button class="btn" ng-model="newgift.gender" uib-btn-radio="'M'" uncheckable>Male</button>
+              <button class="btn" ng-model="newgift.gender" uib-btn-radio="'F'" uncheckable>Female</button>
+              <button class="btn" ng-model="newgift.gender" uib-btn-radio="" uncheckable>Either</button>
+            </div>
+            Meaningfulness:
+            <br/>
+            <button class="btn" ng-model="newgift.relationship" uib-btn-radio="" uncheckable>
+              Not really meaningful
+            </button>
+            <button class="btn" ng-model="newgift.relationship" uib-btn-radio="1" uncheckable>
+              Meaningful
+            </button>
+            <button class="btn" ng-model="newgift.relationship" uib-btn-radio="2" uncheckable>
+              Romantic
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12" style="text-align: center">
+    <a ng-click="create(true)" class="btn btn-primary" role="button" >Create Gift</a>
+    <a href="#/home" class="btn btn-primary" role="home">Home</a>
+  </div>
+
+</div>
+</div>
+</div>
