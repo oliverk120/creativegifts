@@ -17,12 +17,56 @@ router.get('/', function(req, res, next) {
 
 router.route('/gifts')
 .get(function(req, res, next) {
-  console.log(req);
-  var query = Gift.find(req.query);
-  query.exec(function(err, gifts){
-    if(err){ return next(err); }
+
+  var query = {}; 
+  var minprice = 0;
+  var maxprice = 10000000; 
+
+  //don't include booze, nsfw, jokes and geek gifts by default
+  query.nsfw = {$ne: true};
+  //query.booze = false;
+  //query.joke = false;
+  //query.geek = false;
+
+  //automatically include romantic/meaningful gifts by not specifying
+  console.log(req.query);
+  //if nsfw, joke, geek or booze gifts are specifically included, add them to the query
+  if('nsfw' in req.query){
+    if(req.query.nsfw == 'true'){
+      //if nsfw is set to true, don't filter out any nsfw results i.e. include everything
+      delete query.nsfw;
+    } else { 
+      query.nsfw = {$ne: true};
+    };
+  }
+
+
+  //if a gender was specified, add it to the query
+  if('gender' in req.query){
+    query.$or = [{gender:req.query.gender}, {gender:{$exists:false}}];
+  }
+
+  if('minprice' in req.query){
+  //if a minprice is set, replace placeholder
+    minprice = req.query.minprice;
+  }
+
+  if('maxprice' in req.query){
+  //if a maxprice is set, replace placeholder
+    maxprice = req.query.maxprice;
+  }
+  query.price = {$gt: minprice, $lt: maxprice};
+  console.log(query);
+
+  Gift.find(query).sort('-created').exec(function(err, gifts) {
+    if (err) {
+      return res.json(500, {
+        error: 'Cannot list the gifts'
+      });
+    }
     res.json(gifts);
   });
+
 })
 .post(function(req, res, next) {
   var gift = new Gift(req.body);

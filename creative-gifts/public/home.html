@@ -1,13 +1,5 @@
  <div class="container">
     <div>
-    Filtered
-      {{gifts.filtered}}
-      <ul>
-        List:
-        <li ng-repeat="gift in gifts">{{gift.title}}<a href="#/gift/{{gift._id}}">View</a> <a ng-click="remove(gift)">Delete</a></li>
-
-        <!--<li ng-repeat="item in data">{{item}}</li>-->
-      </ul>
       <div class="col-sm-4">
         <div class="">
         </div>
@@ -63,10 +55,15 @@
     </div>
 
     <div class="col-sm-12" style="text-align: center">
-      <a href="#/gifts/1" class="btn btn-primary" role="button" >Find Gift</a>
+      <a ng-click="find(query)" class="btn btn-primary" role="button" >Find Gift</a>
       <a href="#/gifts/create" class="btn btn-primary" role="button">Create Gifts</a>
     </div>
+      <ul>
+        List:
+        <li ng-repeat="gift in gifts">{{gift.title}}: {{gift.price}}<a href="#/gift/{{gift._id}}">View</a> <a ng-click="remove(gift)">Delete</a></li>
 
+        <!--<li ng-repeat="item in data">{{item}}</li>-->
+      </ul>
   </div>
 </div>
 </div>

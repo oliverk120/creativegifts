@@ -9,11 +9,6 @@ var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
       url: '/home',
       templateUrl: '/home.html',
       controller: 'GiftsCtrl',
-      resolve: {
-        postPromise: ['gifts', function(gifts){
-          return gifts.getAll();
-        }]
-      }
     })
     .state('create gift', {
       url: '/gifts/create',
@@ -49,9 +44,10 @@ app.factory('gifts', ['$http', '$state', function($http, $state){
       angular.copy(data, o.gifts);
     })
   }
-  o.filterGifts = function(giftQuery){
-      return $http.get('/gifts', {query: giftQuery}).success(function(data){
-      angular.copy(data, o.filtered);
+  o.find = function(giftQuery){
+    console.log(giftQuery);
+      return $http.get('/gifts', {params: giftQuery}).success(function(data){
+      angular.copy(data, o.gifts);
     })
   }
   o.create = function(gift){
@@ -70,8 +66,8 @@ app.factory('gifts', ['$http', '$state', function($http, $state){
   return o;
 }])
 
-.controller('MainCtrl', ['$scope', 'gifts',
-  function($scope, gifts){
+.controller('MainCtrl', ['$scope',
+  function($scope){
       //all query items added in view other than default min/max price
       $scope.query = {};
       $scope.query.minprice = 0;
