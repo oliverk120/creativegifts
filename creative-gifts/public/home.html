@@ -1,18 +1,16 @@
  <div class="container">
     <div>
-
+    Filtered
+      {{gifts.filtered}}
       <ul>
-        Query: {{query}}
-        {{gifts}}
+        List:
+        <li ng-repeat="gift in gifts">{{gift.title}}<a href="#/gift/{{gift._id}}">View</a> <a ng-click="remove(gift)">Delete</a></li>
+
         <!--<li ng-repeat="item in data">{{item}}</li>-->
       </ul>
       <div class="col-sm-4">
-
         <div class="">
-
         </div>
-
-
         <div> Recipient:</div>
         <div>
           <div class="row">
@@ -41,7 +39,6 @@
               </button>
             </p>
           </div>
-
         </div>
       </div>
     </div>

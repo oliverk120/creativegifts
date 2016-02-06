@@ -17,7 +17,9 @@ router.get('/', function(req, res, next) {
 
 router.route('/gifts')
 .get(function(req, res, next) {
-  Gift.find(function(err, gifts){
+  console.log(req);
+  var query = Gift.find(req.query);
+  query.exec(function(err, gifts){
     if(err){ return next(err); }
     res.json(gifts);
   });
@@ -39,7 +41,7 @@ router.route('/gifts/:gift')
   console.log(req.params);
   Gift.remove({
             _id: req.params.gift
-        }, function(err, bear) {
+        }, function(err, gift) {
             if (err)
                 res.send(err);
             res.json({ message: 'Successfully deleted' });

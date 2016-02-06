@@ -1,18 +1,19 @@
  <div class="container" ng-init="findOne()">
   <div>
-    <ul>
-      Gift {{gift}}
-    </ul>
+
     <div class="col-sm-4">
-    Name:<input ng-model="gift.title" /><br/>
-    Description:<input ng-model="gift.description" /><br/>
-    Image:<input ng-model="gift.img_src" /><br/>
+    <h1>{{gift.title}}</h1>
+    <img class="col-sm-12" src="{{gift.img_src}}" height="300" /><br/>
+    
+    
     AmazonId:<input ng-model="gift.amazonid" /><br/>
     Source Url:<input ng-model="gift.source_url" /><br/>
       Price:<input ng-model="gift.price" /><br/>
     </div>
     <div class="col-sm-4">
-      <div class="panel-heading">is it a:</div>
+    <h3>Description</h3>
+    {{gift.description}}<br/>
+      <div class="panel-heading"></div>
       <form class="checkbox" action="">
       <input type="checkbox" ng-model="gift.nsfw">Adult themed gift
         <br>
@@ -26,6 +27,7 @@
     <div class="col-sm-4">
       <div class="">
       </div>
+
       <div> Recipient:</div>
       <div>
         <div class="row">
