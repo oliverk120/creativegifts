@@ -34,7 +34,7 @@ var GiftSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  //what is the relationship to the giftee i.e. 
+  //this shows the relationship to the giftee, 1 is a meaningful type of gift, 2 is a romantic gift, 0 or nothing is a generic gift
   relationship: {
     type: Number,
     required: false,

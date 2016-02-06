@@ -12,17 +12,17 @@
                 <label class="btn btn-primary col-sm-6" ng-model="query.gender" uib-btn-radio="'M'" uncheckable>Male</label>
                 <label class="btn btn-primary col-sm-6" ng-model="query.gender" uib-btn-radio="'F'" uncheckable>Female</label>
               </div>
-              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="'friend'" uncheckable>
+              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="10" uncheckable>
                 Friend
               </button>
-              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="'parent'" uncheckable>
+              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="1" uncheckable>
                 <span ng-switch="gender">
                   <span ng-switch-when="M">Father</span>
                   <span ng-switch-when="F">Mother</span>
                   <span ng-switch-default>Parent</span>
                 </span>
               </button>
-              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="'so'" uncheckable>
+              <button class="btn col-sm-12" ng-model="query.relationship" uib-btn-radio="12" uncheckable>
                 <span ng-switch="gender">
                   <span ng-switch-when="M">Boyfriend/Husband</span>
                   <span ng-switch-when="F">Girlfriend/Wife</span>

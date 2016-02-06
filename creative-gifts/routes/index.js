@@ -28,8 +28,22 @@ router.route('/gifts')
   query.joke = {$ne: true};
   query.geek = {$ne: true};
 
+  //any level of relationship is default
+  
+
   //automatically include romantic/meaningful gifts by not specifying
   console.log(req.query);
+
+  if('relationship' in req.query){
+    var relationship = req.query.relationship.split("");
+    if(relationship.indexOf('0')>-1){
+      //if relationship 0 is selected, this means all gifts, even those that don't have the relationship field should be included
+      query.$or = [{relationship: {$in: relationship}}, {relationship: {$exists: false}}];
+    } else {
+      query.relationship = {$in: relationship};
+    }
+  }
+
   //if nsfw, joke, geek or booze gifts are specifically included, add them to the query
   if('nsfw' in req.query){
     if(req.query.nsfw == 'true'){
@@ -41,7 +55,7 @@ router.route('/gifts')
     };
   }
 
-    if('geek' in req.query){
+  if('geek' in req.query){
     if(req.query.geek == 'true'){
       //if geek is set to true, don't filter out any geek results i.e. include everything
       delete query.geek;
@@ -51,7 +65,7 @@ router.route('/gifts')
     };
   }
 
-    if('joke' in req.query){
+  if('joke' in req.query){
     if(req.query.joke == 'true'){
       //if joke is set to true, don't filter out any joke results i.e. include everything
       delete query.joke;
@@ -61,7 +75,7 @@ router.route('/gifts')
     };
   }
 
-    if('booze' in req.query){
+  if('booze' in req.query){
     if(req.query.booze == 'true'){
       //if booze is set to true, don't filter out any booze results i.e. include everything
       delete query.booze;
@@ -74,7 +88,13 @@ router.route('/gifts')
 
   //if a gender was specified, add it to the query
   if('gender' in req.query){
-    query.$or = [{gender:req.query.gender}, {gender:{$exists:false}}];
+    if(req.query.gender == "M"){
+      //if gender set to male, don't include female gifts
+      query.gender = {$ne: "F"};
+    } else if (req.query.gender == "F"){
+      //if gender set to female, don't include male gifts
+      query.gender = {$ne: "M"};
+    }
   }
 
   if('minprice' in req.query){
