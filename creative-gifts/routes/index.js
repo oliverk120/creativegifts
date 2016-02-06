@@ -22,11 +22,11 @@ router.route('/gifts')
   var minprice = 0;
   var maxprice = 10000000; 
 
-  //don't include booze, nsfw, jokes and geek gifts by default
+  //don't include booze, nsfw, jokes and geek gifts by default ($ne = not equals)
   query.nsfw = {$ne: true};
-  //query.booze = false;
-  //query.joke = false;
-  //query.geek = false;
+  query.booze = {$ne: true};
+  query.joke = {$ne: true};
+  query.geek = {$ne: true};
 
   //automatically include romantic/meaningful gifts by not specifying
   console.log(req.query);
@@ -36,7 +36,38 @@ router.route('/gifts')
       //if nsfw is set to true, don't filter out any nsfw results i.e. include everything
       delete query.nsfw;
     } else { 
+      //if it's not true, don't include any gifts with nsfw set to true
       query.nsfw = {$ne: true};
+    };
+  }
+
+    if('geek' in req.query){
+    if(req.query.geek == 'true'){
+      //if geek is set to true, don't filter out any geek results i.e. include everything
+      delete query.geek;
+    } else { 
+      //if it's not true, don't include any gifts with geek set to true
+      query.geek = {$ne: true};
+    };
+  }
+
+    if('joke' in req.query){
+    if(req.query.joke == 'true'){
+      //if joke is set to true, don't filter out any joke results i.e. include everything
+      delete query.joke;
+    } else { 
+      //if it's not true, don't include any gifts with joke set to true
+      query.joke = {$ne: true};
+    };
+  }
+
+    if('booze' in req.query){
+    if(req.query.booze == 'true'){
+      //if booze is set to true, don't filter out any booze results i.e. include everything
+      delete query.booze;
+    } else { 
+      //if it's not true, don't include any gifts with booze set to true
+      query.booze = {$ne: true};
     };
   }
 
