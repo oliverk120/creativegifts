@@ -1,9 +1,9 @@
 var expect = require('chai').expect;
-var gifts = require('../routes/index');
+require('../models/Gifts');
+var gifts = require('../controller/gifts');
 
-
-describe('gifts', function(){
-	it ('should work!', function(){
-		expect(true).to.be.true;
+describe('test export', function(){
+	it ('should be true', function(){
+		expect(gifts.test).to.be.true;
 	});
 });
