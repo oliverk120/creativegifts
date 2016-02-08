@@ -32,7 +32,7 @@ var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
 app.factory('gifts', ['$http', '$state', function($http, $state){
   var o = {
     gifts: [],
-    filtered: []
+    giftIdList: []
   };
   o.getAll = function(){
     return $http.get('/gifts').success(function(data){
@@ -45,8 +45,7 @@ app.factory('gifts', ['$http', '$state', function($http, $state){
     })
   }
   o.find = function(giftQuery){
-    console.log(giftQuery);
-      return $http.get('/gifts', {params: giftQuery}).success(function(data){
+    return $http.get('/gifts', {params: giftQuery}).success(function(data){
       angular.copy(data, o.gifts);
     })
   }

@@ -5,6 +5,7 @@ angular.module('creativegifts').controller('GiftsCtrl', [
   'gifts',
   function($scope, $state, $stateParams, gifts){
     $scope.gifts = gifts.gifts;
+    $scope.numberOfGifts = $scope.gifts.length;
 
     $scope.create = function(isValid) {
       if (isValid) {
@@ -42,10 +43,15 @@ angular.module('creativegifts').controller('GiftsCtrl', [
       if(!query){
         query = {};
       }
-      gifts.find(query);
+      gifts.find(query).success(function(data){
+        //every time find is run, gift list is reset
+        $scope.giftIdList = [];
+          for (var i = data.length - 1; i >= 0; i--) {
+            $scope.giftIdList.push(data[i]._id);
+          };
+        });
+      //put all the id's of the gifts retrieved into an array
     }
-
-
   }]);
 
 

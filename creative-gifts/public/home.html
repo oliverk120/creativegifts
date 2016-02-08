@@ -7,7 +7,6 @@
         <div>
           <div class="row">
             <div>
-
               <div class="col-sm-12">
                 <label class="btn btn-primary col-sm-6" ng-model="query.gender" uib-btn-radio="'M'" uncheckable>Male</label>
                 <label class="btn btn-primary col-sm-6" ng-model="query.gender" uib-btn-radio="'F'" uncheckable>Female</label>
@@ -60,9 +59,28 @@
     </div>
       <ul>
         List:
-        <li ng-repeat="gift in gifts">{{gift.title}}: {{gift.price}}<a href="#/gift/{{gift._id}}">View</a> <a ng-click="remove(gift)">Delete</a></li>
-
-        <!--<li ng-repeat="item in data">{{item}}</li>-->
+        <table border="1">
+        <tr>
+        <td>title</td>
+        <td>price</td>
+        <td>gender</td>
+        <td>nsfw</td>
+        <td>booze</td>
+        <td>joke</td>
+        <td>geek</td>
+        <td>options</td>
+        </tr>
+        <tr ng-repeat="gift in gifts">
+        <td>{{gift.title}}</td>
+        <td>{{gift.price}}</td>
+        <td>{{gift.gender}}</td>
+        <td>{{gift.nsfw}}</td>
+        <td>{{gift.booze}}</td>
+        <td>{{gift.joke}}</td>
+        <td>{{gift.geek}}</td>
+        <td><a href="#/gift/{{gift._id}}">View</a> <a ng-click="remove(gift)">Delete</a></td>
+        </tr>
+        </table>
       </ul>
   </div>
 </div>
