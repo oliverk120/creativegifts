@@ -57,4 +57,4 @@ var GiftSchema = new mongoose.Schema({
   }
 });
 
-mongoose.model('Gift', GiftSchema);
+exports.Gift = mongoose.model('Gift', GiftSchema);

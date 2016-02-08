@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Gift = mongoose.model('Gift');
+var Gift = require('../models/Gifts');
 var gifts = require('../controller/gifts');
 
 
