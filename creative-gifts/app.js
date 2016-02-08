@@ -4,16 +4,20 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var config = require('./config');
 var mongoose = require('mongoose');
 
 require('./models/Gifts');
-
-mongoose.connect('mongodb://oliver:kliver@widmore.mongohq.com:10000/notesnack');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+app.set('dbUrl', config.db[app.settings.env]);
+mongoose.connect(app.get('dbUrl'));
+
+console.log(app.settings.env);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
