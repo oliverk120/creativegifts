@@ -20,32 +20,41 @@ angular.module('creativegifts').controller('GiftsCtrl', [
         console.log('gift not valid');
       }
     };
-    $scope.findOne = function(){
-      var current_id = $stateParams.id;
-      if(current_id){
-        gifts.findOne(current_id);
-        $scope.gift = gifts.gift;
-      }
-      $scope.next_id = 0;
-      $scope.next_image = false;
-      
-      if($scope.gifts.length > 1){
-        console.log('gifts loaded');
-          for (var k = 0; k < $scope.gifts.length; k+=1) {
-            console.log($scope.gifts[k]._id);
-            if ($scope.gifts[k]._id === current_id) {
-        console.log('found id in list');
-              var j = k+1;
-              if($scope.gifts[j]){
-                console.log('next gift exists');
-                $scope.next_id = $scope.gifts[j]._id;
-                $scope.next_image = $scope.gifts[j].img_src;
-                preload($scope.next_image);
+
+    $scope.showGift = function(){
+      if($stateParams.id){
+              //if a list of gifts is loaded, preload image and id of next gift
+        if($scope.gifts.length > 1){
+            for (var k = 0; k < $scope.gifts.length; k+=1) {
+              if ($scope.gifts[k]._id === $stateParams.id) {
+                //if the current id is in the list of gifts, load that into gift variable
+                angular.copy($scope.gifts[k], $scope.gift);
+                var j = k+1;
+                if($scope.gifts[j]){
+                  $scope.next_id = $scope.gifts[j]._id;
+                  $scope.next_image = $scope.gifts[j].img_src;
+                  preload($scope.next_image);
+                }
+              } else {
+                //if the current id is not in the list of gifts, then load it from database
+                $scope.findOne();
               }
             }
-          }
+        } else if ($scope.gifts.length == 1) {
+          //if only one gift is loaded, load that into the scope
+          angular.copy($scope.gifts, $scope.gift);
+        } else {
+          $scope.findOne();
+        }
       }
-      console.log($scope);
+    }
+
+
+    $scope.findOne = function(){
+      if($stateParams.id){
+        gifts.findOne($stateParams.id);
+        $scope.gift = gifts.gift;
+      }
     }
 
     $scope.remove = function(gift){

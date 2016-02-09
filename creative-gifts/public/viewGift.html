@@ -1,4 +1,4 @@
- <div class="container" ng-init="findOne()">
+ <div class="container" ng-init="showGift()">
   <div>
 
     <div class="col-sm-4">
@@ -57,6 +57,7 @@
 
   <div class="col-sm-12" style="text-align: center">
     <a href="#/home" class="btn btn-primary" role="home">Home</a>
+    <a href="#/gift/{{next_id}}" ng-show="next_id" class="btn btn-danger" role="home">Next</a>
     <a ng-click="remove(gift)" class="btn btn-primary" role="home">Delete</a>
   </div>
 
