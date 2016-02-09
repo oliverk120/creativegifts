@@ -50,6 +50,7 @@ angular.module('creativegifts').controller('GiftsCtrl', [
           $scope.findOne();
         }
       }
+      console.log($scope);
     }
 
 

@@ -7,12 +7,13 @@ var Gift = mongoose.model('Gift');
 exports.test = true;
 
 exports.show = function(req, res) {
+  console.log(req.gift);
 	res.json(req.gift);
 };
 
 exports.save = function(req, res, next) {
 	var gift = new Gift(req.body);
-  gift.author = req.payload.username;
+  gift.user = req.payload._id;
 	gift.save(function(err, gift){
 		if(err){ return next(err); }
 		res.json(gift);

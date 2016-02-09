@@ -1,6 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+Schema = mongoose.Schema;
 
-var GiftSchema = new mongoose.Schema({
+var GiftSchema = new Schema({
   created: {
     type: Date,
     default: Date.now
@@ -54,6 +55,10 @@ var GiftSchema = new mongoose.Schema({
   joke: {
     type: Boolean,
     required: false,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
