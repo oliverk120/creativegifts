@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Gift = require('../models/Gifts');
+var model = require('../models/Gifts');
 var gifts = require('../controller/gifts');
 
 
@@ -26,7 +26,7 @@ router.route('/gifts/:gift')
 .delete(gifts.delete);
 
 router.param('gift', function(req, res, next, id) {
-  var query = Gift.findById(id);
+  var query = model.Gift.findById(id);
 
   query.exec(function (err, gift){
     if (err) { return next(err); }

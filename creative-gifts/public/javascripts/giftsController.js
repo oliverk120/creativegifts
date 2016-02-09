@@ -23,8 +23,12 @@ angular.module('creativegifts').controller('GiftsCtrl', [
     $scope.findOne = function(){
       if($stateParams.id){
         gifts.findOne($stateParams.id);
-        $scope.gift = gifts.gifts;
+        $scope.gift = gifts.gift;
       }
+      var gifts_loaded = $scope.hasOwnProperty('giftIdList');
+      $scope.next_id = 0;
+      $scope.next_image = false;
+      console.log($scope);
     }
 
     $scope.remove = function(gift){
