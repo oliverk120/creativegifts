@@ -3,7 +3,9 @@ angular.module('creativegifts').controller('GiftsCtrl', [
   '$state',
   '$stateParams',
   'gifts',
-  function($scope, $state, $stateParams, gifts){
+  'auth',
+  function($scope, $state, $stateParams, gifts, auth){
+    $scope.isLoggedIn = auth.isLoggedIn;
     $scope.gifts = gifts.gifts;
     $scope.numberOfGifts = $scope.gifts.length;
 
@@ -30,6 +32,7 @@ angular.module('creativegifts').controller('GiftsCtrl', [
                 //if the current id is in the list of gifts, load that into gift variable
                 angular.copy($scope.gifts[k], $scope.gift);
                 var j = k+1;
+                $scope.currentGiftNumber = j;
                 if($scope.gifts[j]){
                   $scope.next_id = $scope.gifts[j]._id;
                   $scope.next_image = $scope.gifts[j].img_src;

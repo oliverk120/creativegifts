@@ -12,6 +12,7 @@ exports.show = function(req, res) {
 
 exports.save = function(req, res, next) {
 	var gift = new Gift(req.body);
+  gift.author = req.payload.username;
 	gift.save(function(err, gift){
 		if(err){ return next(err); }
 		res.json(gift);

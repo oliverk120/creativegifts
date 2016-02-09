@@ -1,5 +1,4 @@
 var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
-
 .config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -24,12 +23,82 @@ var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
       url: '/gift/{id}',
       templateUrl: '/viewGift.html',
       controller: 'GiftsCtrl',
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: '/login.html',
+      controller: 'AuthCtrl',
+      onEnter: ['$state', 'auth', function($state, auth){
+        if(auth.isLoggedIn()){
+          $state.go('home');
+        }
+      }]
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: '/register.html',
+      controller: 'AuthCtrl',
+      onEnter: ['$state', 'auth', function($state, auth){
+        if(auth.isLoggedIn()){
+          $state.go('home');
+        }
+      }]
     });
-
     $urlRouterProvider.otherwise('home');
-  }])
+  }]);
 
-app.factory('gifts', ['$http', '$state', function($http, $state){
+app.factory('auth', ['$http', '$window', function($http, $window){
+ var auth = {};
+
+ auth.saveToken = function (token){
+  $window.localStorage['creativegifts-token'] = token;
+};
+
+auth.getToken = function (){
+  return $window.localStorage['creativegifts-token'];
+}
+
+auth.isLoggedIn = function(){
+  var token = auth.getToken();
+
+  if(token){
+    var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+    return payload.exp > Date.now() / 1000;
+  } else {
+    return false;
+  }
+};
+
+auth.currentUser = function(){
+  if(auth.isLoggedIn()){
+    var token = auth.getToken();
+    var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+    return payload.username;
+  }
+};
+
+auth.register = function(user){
+  return $http.post('/register', user).success(function(data){
+    auth.saveToken(data.token);
+  });
+};
+
+auth.logIn = function(user){
+  return $http.post('/login', user).success(function(data){
+    auth.saveToken(data.token);
+  });
+};
+
+auth.logOut = function(){
+  $window.localStorage.removeItem('creativegifts-token');
+};
+
+return auth;
+}])
+
+app.factory('gifts', ['$http', '$state', 'auth', function($http, $state, auth){
   var o = {
     gifts: [],
     gift:{}
@@ -50,7 +119,9 @@ app.factory('gifts', ['$http', '$state', function($http, $state){
     })
   }
   o.create = function(gift){
-    return $http.post('/gifts', gift).success(function(data){
+    return $http.post('/gifts', gift, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
       //add new gift to list of gifts
       o.gifts.push(data);
       //redirect to view page for new gift
@@ -58,20 +129,52 @@ app.factory('gifts', ['$http', '$state', function($http, $state){
     });
   }
   o.remove = function(gift){
-    $http.delete('/gifts/'+gift._id).success(function(data){
+    $http.delete('/gifts/'+gift._id, {
+      headers: {Authorization: 'Bearer '+auth.getToken()}
+    }).success(function(data){
       console.log(data);
     });
   }
   return o;
-}])
+}]);
 
-.controller('MainCtrl', ['$scope',
-  function($scope){
-      //all query items added in view other than default min/max price
-      $scope.query = {};
-      $scope.query.minprice = 0;
-      $scope.query.maxprice = 400;   
-    }]);
+app.controller('AuthCtrl', [
+  '$scope',
+  '$state',
+  'auth',
+  function($scope, $state, auth){
+    $scope.user = {};
+
+    $scope.register = function(){
+      auth.register($scope.user).error(function(error){
+        $scope.error = error;
+      }).then(function(){
+        $state.go('home');
+      });
+    };
+
+    $scope.logIn = function(){
+      auth.logIn($scope.user).error(function(error){
+        $scope.error = error;
+      }).then(function(){
+        $state.go('home');
+      });
+    };
+  }])
+
+app.controller('NavCtrl', [
+  '$scope',
+  'auth',
+  function($scope, auth){
+    $scope.isLoggedIn = auth.isLoggedIn;
+    $scope.currentUser = auth.currentUser;
+    $scope.logOut = auth.logOut;
+  }]);
+
+app.controller('MainCtrl', ['$scope', 'auth',
+  function($scope, auth){
+    $scope.isLoggedIn = auth.isLoggedIn;
+  }]);
 
 
 
