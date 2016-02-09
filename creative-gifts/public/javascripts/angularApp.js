@@ -32,8 +32,7 @@ var app = angular.module('creativegifts', [ 'ui.bootstrap', 'ui.router'])
 app.factory('gifts', ['$http', '$state', function($http, $state){
   var o = {
     gifts: [],
-    gift:{},
-    giftIdList: []
+    gift:{}
   };
   o.getAll = function(){
     return $http.get('/gifts').success(function(data){

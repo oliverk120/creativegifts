@@ -1,0 +1,3 @@
+to dos:
+- store gift list in cookes (maybe?)
+- html5 mode (pretty urls)

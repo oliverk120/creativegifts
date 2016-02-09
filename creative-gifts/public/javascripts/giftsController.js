@@ -21,13 +21,30 @@ angular.module('creativegifts').controller('GiftsCtrl', [
       }
     };
     $scope.findOne = function(){
-      if($stateParams.id){
-        gifts.findOne($stateParams.id);
+      var current_id = $stateParams.id;
+      if(current_id){
+        gifts.findOne(current_id);
         $scope.gift = gifts.gift;
       }
-      var gifts_loaded = $scope.hasOwnProperty('giftIdList');
       $scope.next_id = 0;
       $scope.next_image = false;
+      
+      if($scope.gifts.length > 1){
+        console.log('gifts loaded');
+          for (var k = 0; k < $scope.gifts.length; k+=1) {
+            console.log($scope.gifts[k]._id);
+            if ($scope.gifts[k]._id === current_id) {
+        console.log('found id in list');
+              var j = k+1;
+              if($scope.gifts[j]){
+                console.log('next gift exists');
+                $scope.next_id = $scope.gifts[j]._id;
+                $scope.next_image = $scope.gifts[j].img_src;
+                preload($scope.next_image);
+              }
+            }
+          }
+      }
       console.log($scope);
     }
 
@@ -48,14 +65,21 @@ angular.module('creativegifts').controller('GiftsCtrl', [
         query = {};
       }
       gifts.find(query).success(function(data){
-        //every time find is run, gift list is reset
-        $scope.giftIdList = [];
-          for (var i = data.length - 1; i >= 0; i--) {
-            $scope.giftIdList.push(data[i]._id);
-          };
+
         });
       //put all the id's of the gifts retrieved into an array
     }
+
+function preload(src) 
+  {
+    var preloadedImage = new Image(); 
+    preloadedImage.src = src;
+  }
+
+
+
+
+
   }]);
 
 
